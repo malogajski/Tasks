@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_message_barcode_already_exists">Barkod već postoji.</string>
+    <string name="server_message_insufficient_quantity">Manjak količina.</string>
+    <string name="server_message_bad_credentials">Neuspešna prijava.</string>
+</resources>
