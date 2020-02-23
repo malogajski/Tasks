@@ -1,4 +1,4 @@
-package com.umld.tasks.view;
+package com.umld.tasks;
 
 
 import android.os.Bundle;
@@ -9,15 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.umld.tasks.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TaskList extends Fragment {
+public class TaskItem extends Fragment {
 
 
-    public TaskList() {
+    public TaskItem() {
         // Required empty public constructor
     }
 
@@ -26,8 +25,7 @@ public class TaskList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_task_list, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_task_item, container, false);
     }
 
 }

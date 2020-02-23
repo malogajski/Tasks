@@ -91,7 +91,7 @@
                 android:id="@+id/btLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#009a9a"
+                android:background="@color/buttonColor"
                 android:text="Login"
                 android:textColor="#d9e5f3"
                 android:textStyle="bold"
