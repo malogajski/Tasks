@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.umld.tasks.R;
 import com.umld.tasks.model.ModelCallback;
@@ -24,7 +25,8 @@ import com.umld.tasks.repository.UserRepsitory;
  */
 public class RegisterFragment extends Fragment {
 
-    private Button btRegister;
+    private TextView btRegister;
+    private TextView btLogin;
     private EditText edFullname;
     private EditText edUsername;
     private EditText edPassword;
@@ -41,7 +43,7 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_register, container, false);
 
-
+        btLogin    = view.findViewById(R.id.btLogin);
         btRegister = view.findViewById(R.id.btRegister);
         edFullname = view.findViewById(R.id.edFullname);
         edUsername = view.findViewById(R.id.edUsername);
@@ -68,8 +70,13 @@ public class RegisterFragment extends Fragment {
 
                     }
                 });
+            }
+        });
 
-
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.mainFrame, new LoginFragment(), null).commit();
             }
         });
 

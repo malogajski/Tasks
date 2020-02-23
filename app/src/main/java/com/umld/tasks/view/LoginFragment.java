@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.umld.tasks.R;
 import com.umld.tasks.model.ModelCallback;
@@ -23,8 +24,8 @@ import com.umld.tasks.repository.UserRepsitory;
  */
 public class LoginFragment extends Fragment {
 
-    private Button btLogin;
-    private Button btRegister;
+    private TextView btLogin;
+    private TextView btRegister;
     private EditText edUsername;
     private EditText edPassword;
     UserRepsitory userRepsitory;
