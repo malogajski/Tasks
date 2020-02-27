@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umld.tasks.R;
 import com.umld.tasks.model.ModelCallback;
@@ -59,6 +60,10 @@ public class LoginFragment extends Fragment {
                     public void onResult(Sessions result) {
                         if(result.getSuccess()){
                             // if login true then show Task list fragment
+                            String token = result.getUserLoginData().getAccess_token();
+                            if (token.isEmpty()) token = "nema tokena";
+
+                            Toast.makeText(getContext(),    token, Toast.LENGTH_SHORT).show();
                             MainActivity.fragmentManager.beginTransaction().replace(R.id.mainFrame, new TaskList(), null).commit();
                         }
                     }

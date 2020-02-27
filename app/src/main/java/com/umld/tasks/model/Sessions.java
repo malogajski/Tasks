@@ -10,7 +10,7 @@ public class Sessions {
     private boolean success;
     @SerializedName("messages")
     private String messages[];
-    @SerializedName("userLoginData")
+    @SerializedName("data")
     private UserLoginData userLoginData;
 
     public int getStatusCode() {

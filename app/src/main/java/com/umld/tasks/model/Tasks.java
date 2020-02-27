@@ -1,7 +1,10 @@
 package com.umld.tasks.model;
 
+import android.app.DownloadManager;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.umld.tasks.repository.TasksRepository;
 
 import java.util.Date;
 
