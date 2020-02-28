@@ -11,5 +11,5 @@ import retrofit2.http.Headers;
 public interface Tasks {
 
     @GET("/tasks/v1/tasks")
-    Call<AllTasks> getAllTasks(@Header("authorization") String token);
+    Call<Tasks> getAllTasks(@Header("authorization") String token);
 }

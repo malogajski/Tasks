@@ -1,6 +1,8 @@
 package com.umld.tasks.view;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -62,6 +64,9 @@ public class LoginFragment extends Fragment {
                             // if login true then show Task list fragment
                             String token = result.getUserLoginData().getAccess_token();
                             if (token.isEmpty()) token = "nema tokena";
+
+                            SharedPreferences preferences = getActivity().getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+                            preferences.edit().putString("TOKEN",token).apply();
 
                             Toast.makeText(getContext(),    token, Toast.LENGTH_SHORT).show();
                             MainActivity.fragmentManager.beginTransaction().replace(R.id.mainFrame, new TaskList(), null).commit();

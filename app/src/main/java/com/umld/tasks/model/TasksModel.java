@@ -1,14 +1,11 @@
 package com.umld.tasks.model;
 
-import android.app.DownloadManager;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.umld.tasks.repository.TasksRepository;
 
 import java.util.Date;
 
-public class Tasks {
+public class TasksModel {
     @SerializedName("id")
     @Expose
     private int id;
@@ -34,7 +31,7 @@ public class Tasks {
     private int userid;
 
 
-    public Tasks(String title, String description, Date deadline, char completed, int userid) {
+    public TasksModel(String title, String description, Date deadline, char completed, int userid) {
         this.title = title;
         this.description = description;
         this.deadline = deadline;
