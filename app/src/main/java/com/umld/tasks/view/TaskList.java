@@ -13,24 +13,26 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.umld.tasks.R;
 import com.umld.tasks.adapters.TaskListAdapter;
-import com.umld.tasks.controler.Tasks;
 import com.umld.tasks.model.ModelCallback;
 import com.umld.tasks.model.ModelError;
-import com.umld.tasks.model.TaskDetails;
-import com.umld.tasks.model.TasksModel;
+import com.umld.tasks.model.Tasks;
 import com.umld.tasks.repository.TasksRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TaskList extends Fragment {
 
-    private TextView textView;
+    private TextView noData;
     private ListView listView;
+    private FloatingActionButton addNewTask;
+
     TasksRepository taskRepo;
 
     public TaskList() {
@@ -39,31 +41,44 @@ public class TaskList extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
-        textView = view.findViewById(R.id.emptyTextView);
+        noData = view.findViewById(R.id.emptyTextView);
         listView = view.findViewById(R.id.itemsListView);
 
         SharedPreferences preferences = getActivity().getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         String retrivedToken  = preferences.getString("TOKEN",null);//second parameter default value.
-/*
-        taskRepo = new TasksRepository(getActivity());
-        taskRepo.getTasks(new TasksRepository(getActivity()), new ModelCallback<Tasks>() {
+
+        // Add new task from FAB
+        addNewTask.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResult(TasksModel result) {
-                ArrayList<TasksModel> result1 = new ArrayList<>();
-                int velicina = result1.size();
+            public void onClick(View view) {
 
-                if (velicina > 0)
-                    Toast.makeText(getContext(), "velicina je: "+ velicina, Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getContext(), "Velicina tasks ArryList je: 0", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-//                TaskListAdapter adapter = new TaskListAdapter(getContext(), R.layout.fragment_task_list, result);
-//                listView.setAdapter(adapter);
+        // Show tasks
+        taskRepo = new TasksRepository(getActivity());
+        taskRepo.getTasks(retrivedToken, new ModelCallback<Tasks>() {
+            @Override
+            public void onResult(Tasks tasks) {
+
+                int taskSize = tasks.getData().getTasks().size();
+
+                if (taskSize > 0) {
+                    noData.setVisibility(View.INVISIBLE);
+                }
+
+                ArrayList<Tasks> arr = new ArrayList<>();
+                for (int x = 0; x < taskSize; x++) {
+                    arr.add(x,tasks);
+                }
+
+                TaskListAdapter adapter = new TaskListAdapter(getContext(), R.layout.fragment_task_item, arr);
+                listView.setAdapter(adapter);
             }
 
             @Override
@@ -71,9 +86,6 @@ public class TaskList extends Fragment {
                 Toast.makeText(getActivity(), "Nema podataka!", Toast.LENGTH_SHORT).show();
             }
         });
-//        textView.setText(retrivedToken);
-*/
-
 
         return view;
     }

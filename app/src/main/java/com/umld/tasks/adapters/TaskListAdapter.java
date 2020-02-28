@@ -1,20 +1,53 @@
 package com.umld.tasks.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.umld.tasks.model.TasksModel;
+import com.umld.tasks.R;
+import com.umld.tasks.model.Tasks;
+import java.util.List;
 
-import java.util.ArrayList;
-
-public class TaskListAdapter extends ArrayAdapter<TasksModel> {
+public class TaskListAdapter extends ArrayAdapter<Tasks> {
 
     private Context mContext;
+    int mResource;
 
-    public TaskListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<TasksModel> objects) {
+    public TaskListAdapter(@NonNull Context context, int resource, @NonNull List<Tasks> objects) {
         super(context, resource, objects);
         mContext = context;
+        mResource = resource;
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        int id = getItem(position).getData().getTasks().get(position).getId();
+        String title = getItem(position).getData().getTasks().get(position).getTitle();
+        String description = getItem(position).getData().getTasks().get(position).getDescription();
+        String completed = getItem(position).getData().getTasks().get(position).getCompleted();
+
+        Tasks.Task task = new Tasks.Task(id, title, description, completed);
+
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        convertView = inflater.inflate(mResource, parent, false);
+
+        TextView tvTitle = convertView.findViewById(R.id.tvTitle);
+        TextView tvDescription = convertView.findViewById(R.id.tvDescription);
+        TextView tvCompleted = convertView.findViewById(R.id.tvCompleted);
+        TextView tvId = convertView.findViewById(R.id.tvId);
+
+        tvTitle.setText(title);
+        tvDescription.setText(description);
+        tvCompleted.setText(completed);
+        tvId.setText(String.valueOf(id));
+
+        return convertView;
     }
 }

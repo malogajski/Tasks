@@ -42,6 +42,7 @@
                         android:letterSpacing="0.1"
                         android:textSize="16dp"
                         android:inputType="text"
+                        android:text="darko"
                         android:textColor="#fff"/>
                 </LinearLayout>
 
@@ -70,6 +71,7 @@
                         android:inputType="textPassword"
                         android:letterSpacing="0.1"
                         android:textSize="16dp"
+                        android:text="123"
                         android:textColor="#fff"/>
                 </LinearLayout>
 
