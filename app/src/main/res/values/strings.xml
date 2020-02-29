@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello from TASK LIST</string>
+    <string name="description">Description</string>
+    <string name="deadLineDatePicker">Deadline</string>
+    <string name="lbDeadline">Deadline</string>
 </resources>

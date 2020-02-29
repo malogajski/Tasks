@@ -11,7 +11,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
+import androidx.navigation.NavDirections;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.umld.tasks.R;
@@ -23,6 +27,10 @@ import com.umld.tasks.repository.TasksRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,17 +56,13 @@ public class TaskList extends Fragment {
 
         noData = view.findViewById(R.id.emptyTextView);
         listView = view.findViewById(R.id.itemsListView);
+        addNewTask = view.findViewById(R.id.addNewTask);
 
         SharedPreferences preferences = getActivity().getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
-        String retrivedToken  = preferences.getString("TOKEN",null);//second parameter default value.
+        String retrivedToken  = preferences.getString("TOKEN",null);
 
         // Add new task from FAB
-        addNewTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        addNewTask.setOnClickListener(view1 ->MainActivity.fragmentManager.beginTransaction().replace(R.id.mainFrame, new AddTask(), null).commit());
 
         // Show tasks
         taskRepo = new TasksRepository(getActivity());
@@ -89,7 +93,4 @@ public class TaskList extends Fragment {
 
         return view;
     }
-
-
-
 }
