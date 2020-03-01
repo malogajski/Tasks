@@ -1,9 +1,5 @@
 package com.umld.tasks.repository;
 
-import com.umld.tasks.controler.UserRegister;
-import com.umld.tasks.model.ModelCallback;
-import com.umld.tasks.model.Users;
-
 public class RegisterCredentials {
 
     private String fullname;

@@ -11,7 +11,7 @@ public class Sessions {
     @SerializedName("messages")
     private String messages[];
     @SerializedName("data")
-    private UserLoginData userLoginData;
+    private UserLogin.UserLoginData userLoginData;
 
     public boolean getSuccess() {
         return success;
@@ -21,7 +21,7 @@ public class Sessions {
         return messages;
     }
 
-    public UserLoginData getUserLoginData() {
+    public UserLogin.UserLoginData getUserLoginData() {
         return userLoginData;
     }
 

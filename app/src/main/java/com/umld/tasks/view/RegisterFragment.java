@@ -8,17 +8,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.umld.tasks.R;
 import com.umld.tasks.model.ModelCallback;
 import com.umld.tasks.model.ModelError;
-import com.umld.tasks.model.Users;
+import com.umld.tasks.model.UsersCreate;
 import com.umld.tasks.repository.RegisterCredentials;
 import com.umld.tasks.repository.RegisterRepository;
-import com.umld.tasks.repository.UserRepsitory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +53,10 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                registerRepository.getRegistredUser(new RegisterCredentials(edFullname.getText().toString(),edUsername.getText().toString(),edPassword.getText().toString()), new ModelCallback<Users>() {
+                registerRepository.getRegistredUser(new RegisterCredentials(edFullname.getText().toString(),edUsername.getText().toString(),edPassword.getText().toString()), new ModelCallback<UsersCreate>() {
 
                     @Override
-                    public void onResult(Users result) {
+                    public void onResult(UsersCreate result) {
                         if(result.getSuccess()){
                             // if login true then show Task list fragment
                             MainActivity.fragmentManager.beginTransaction().replace(R.id.mainFrame, new LoginFragment(), null).commit();

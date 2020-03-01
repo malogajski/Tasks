@@ -32,8 +32,9 @@ public class TaskListAdapter extends ArrayAdapter<Tasks> {
         String title = getItem(position).getData().getTasks().get(position).getTitle();
         String description = getItem(position).getData().getTasks().get(position).getDescription();
         String completed = getItem(position).getData().getTasks().get(position).getCompleted();
+        String deadline = getItem(position).getData().getTasks().get(position).getDeadline();
 
-        Tasks.Task task = new Tasks.Task(id, title, description, completed);
+        Tasks.Task task = new Tasks.Task(id, title, description, completed, deadline);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -42,6 +43,8 @@ public class TaskListAdapter extends ArrayAdapter<Tasks> {
         TextView tvDescription = convertView.findViewById(R.id.tvDescription);
         TextView tvCompleted = convertView.findViewById(R.id.tvCompleted);
         TextView tvId = convertView.findViewById(R.id.tvId);
+//        TextView tvDeadlineDate = convertView.findViewById(R.id.dpDeadline);
+//        TextView tvDeadlineTime = convertView.findViewById(R.id.dpDeadlineTime);
 
         tvTitle.setText(title);
         tvDescription.setText(description);

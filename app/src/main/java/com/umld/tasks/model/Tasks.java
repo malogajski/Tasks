@@ -1,7 +1,13 @@
 package com.umld.tasks.model;
 
+import android.annotation.SuppressLint;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Tasks {
@@ -65,16 +71,17 @@ public class Tasks {
         private String description;
         @SerializedName("deadline")
         @Expose
-        private Object deadline;
+        private String deadline;
         @SerializedName("completed")
         @Expose
         private String completed;
 
-        public Task(int id, String title, String description, String completed) {
+        public Task(int id, String title, String description, String completed, String deadline) {
             this.id = id;
             this.title = title;
             this.description = description;
             this.completed = completed;
+            this.deadline = deadline;
         }
 
         public int getId() {
@@ -101,12 +108,12 @@ public class Tasks {
             this.description = description;
         }
 
-        public Object getDeadline() {
+        public String getDeadline() {
             return deadline;
         }
 
-        public void setDeadline(Object deadline) {
-            this.deadline = deadline;
+        public void setDeadline(String deadline) {
+            this.deadline = deadline; //"01/12/2020 21:05"; //deadline;
         }
 
         public String getCompleted() {

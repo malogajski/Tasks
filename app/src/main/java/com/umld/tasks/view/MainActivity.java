@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
             LoginFragment loginFragment = new LoginFragment();
             fragmentTransaction.add(R.id.mainFrame, loginFragment);
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.commit();
         }
     }

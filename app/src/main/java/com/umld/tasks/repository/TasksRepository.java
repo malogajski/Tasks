@@ -21,9 +21,9 @@ public class TasksRepository extends Repository {
                 .enqueue(generateCallback(callback));
     }
 
-    public void addTask(String token, final ModelCallback<Tasks.Task> callback){
+    public void addTask(String token, Tasks.Task task, final ModelCallback<Tasks.Task> callback){
         createFacade(TasksApi.class)
-                .addTask(token)
+                .addTask(token, task)
                 .enqueue(generateCallback(callback));
     }
 }

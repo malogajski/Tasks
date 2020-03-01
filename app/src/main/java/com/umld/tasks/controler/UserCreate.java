@@ -1,6 +1,6 @@
 package com.umld.tasks.controler;
 
-import com.umld.tasks.model.Users;
+import com.umld.tasks.model.UsersCreate;
 import com.umld.tasks.repository.RegisterCredentials;
 
 import retrofit2.Call;
@@ -8,11 +8,11 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-public interface UserRegister {
+public interface UserCreate {
 
     @Headers("Content-Type: application/json")
     @POST("/tasks/v1/users")
-    Call<Users> getRegistredUser(@Body RegisterCredentials newUser);
+    Call<UsersCreate> getRegistredUser(@Body RegisterCredentials newUser);
 
     /*
     @Headers("Content-Type: application/json")
