@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +68,11 @@ public class LoginFragment extends Fragment {
                             SharedPreferences preferences = getActivity().getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
                             preferences.edit().putString("TOKEN",token).apply();
 
-                            MainActivity.fragmentManager.beginTransaction().replace(R.id.mainFrame, new TaskList(), null).commit();
+                            MainActivity.fragmentManager.beginTransaction()
+                                    .replace(R.id.mainFrame, new TaskList(), null)
+                                    .addToBackStack(null)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                    .commit();
                         }
                     }
 

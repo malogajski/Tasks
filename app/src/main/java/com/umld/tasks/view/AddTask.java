@@ -138,8 +138,8 @@ public class AddTask extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                this.hour = c.get(Calendar.HOUR_OF_DAY) < 10 ? "0" + String.valueOf(c.get(Calendar.HOUR_OF_DAY)) : String.valueOf(c.get(Calendar.HOUR_OF_DAY));
-                this.minute = c.get(Calendar.MINUTE) < 10 ? "0" + String.valueOf(c.get(Calendar.MINUTE)) : String.valueOf(c.get(Calendar.MINUTE));
+                this.hour = c.get(Calendar.HOUR_OF_DAY) < 10 ? "0" + c.get(Calendar.HOUR_OF_DAY) : String.valueOf(c.get(Calendar.HOUR_OF_DAY));
+                this.minute = c.get(Calendar.MINUTE) < 10 ? "0" + c.get(Calendar.MINUTE) : String.valueOf(c.get(Calendar.MINUTE));
             }
             String dateSep = "/";
             String dateTime = this.day + dateSep + this.month + dateSep + this.year + " " + this.hour + ":" +this.minute;
@@ -149,7 +149,11 @@ public class AddTask extends Fragment {
             task.setTitle(edTitle.getText().toString());
             task.setDescription(edDescription.getText().toString());
             task.setDeadline(dateTime);
-            task.setCompleted("N"); //   task.setCompleted(cbCompleted.getText().toString());
+
+            String checked = "N";
+            if (cbCompleted.isChecked()) checked = "Y";
+
+            task.setCompleted(checked); //   task.setCompleted(cbCompleted.getText().toString());
 
 
 

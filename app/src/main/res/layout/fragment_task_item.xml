@@ -6,6 +6,7 @@
     tools:context=".view.TaskItem">
 
     <LinearLayout
+        android:id="@+id/taskItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -46,6 +47,13 @@
                 android:maxLines="1"
                 android:textColor="@color/cardview_light_background"
                 android:text="TextView" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvDeadline"
+                android:textColor="@color/Yellow1"/>
+
         </LinearLayout>
 
         <LinearLayout

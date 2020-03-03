@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 import androidx.navigation.NavDirections;
 
@@ -62,7 +63,12 @@ public class TaskList extends Fragment {
         String retrivedToken  = preferences.getString("TOKEN",null);
 
         // Add new task from FAB
-        addNewTask.setOnClickListener(view1 ->MainActivity.fragmentManager.beginTransaction().replace(R.id.mainFrame, new AddTask(), null).commit());
+        addNewTask.setOnClickListener(view1 ->MainActivity.fragmentManager
+                .beginTransaction()
+                .replace(R.id.mainFrame, new AddTask(), null)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit());
 
         // Show tasks
         taskRepo = new TasksRepository(getActivity());

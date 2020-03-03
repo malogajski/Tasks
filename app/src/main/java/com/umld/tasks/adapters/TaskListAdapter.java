@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,13 +45,24 @@ public class TaskListAdapter extends ArrayAdapter<Tasks> {
         TextView tvDescription = convertView.findViewById(R.id.tvDescription);
         TextView tvCompleted = convertView.findViewById(R.id.tvCompleted);
         TextView tvId = convertView.findViewById(R.id.tvId);
-//        TextView tvDeadlineDate = convertView.findViewById(R.id.dpDeadline);
-//        TextView tvDeadlineTime = convertView.findViewById(R.id.dpDeadlineTime);
+        TextView tvDeadline = convertView.findViewById(R.id.tvDeadline);
+        LinearLayout taskItem = convertView.findViewById(R.id.taskItem);
 
+        // Set values to task item
         tvTitle.setText(title);
         tvDescription.setText(description);
         tvCompleted.setText(completed);
         tvId.setText(String.valueOf(id));
+        tvDeadline.setText(deadline);
+
+
+        taskItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext, "Clicked to item no:" + id, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return convertView;
     }
