@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 import androidx.navigation.NavDirections;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,6 +68,8 @@ public class TaskList extends Fragment {
         // ReyclerView settings
         mRecyclerView = view.findViewById(R.id.itemsListView);
         mRecyclerView.setHasFixedSize(true);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
 
 
@@ -108,7 +111,7 @@ public class TaskList extends Fragment {
                 mAdapter = new RecAdapter(recList);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mAdapter);
-
+                mAdapter.notifyDataSetChanged();
 
                 /*
                 TaskListAdapter adapter = new TaskListAdapter(getContext(), R.layout.fragment_task_item, arr);
@@ -124,4 +127,6 @@ public class TaskList extends Fragment {
 
         return view;
     }
+
+
 }

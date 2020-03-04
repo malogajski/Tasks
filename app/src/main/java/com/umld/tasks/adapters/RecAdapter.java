@@ -70,4 +70,6 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.RecViewHolder> {
     public int getItemCount() {
         return mRecList.size();
     }
+
+
 }
