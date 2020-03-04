@@ -17,9 +17,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 import androidx.navigation.NavDirections;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.umld.tasks.R;
+import com.umld.tasks.adapters.RecAdapter;
 import com.umld.tasks.adapters.TaskListAdapter;
 import com.umld.tasks.model.ModelCallback;
 import com.umld.tasks.model.ModelError;
@@ -39,8 +42,11 @@ import butterknife.ButterKnife;
 public class TaskList extends Fragment {
 
     private TextView noData;
-    private ListView listView;
+//    private ListView listView;
     private FloatingActionButton addNewTask;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     TasksRepository taskRepo;
 
@@ -55,9 +61,15 @@ public class TaskList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
-        noData = view.findViewById(R.id.emptyTextView);
-        listView = view.findViewById(R.id.itemsListView);
+//        noData = view.findViewById(R.id.emptyTextView);
+//        listView = view.findViewById(R.id.itemsListView);
         addNewTask = view.findViewById(R.id.addNewTask);
+        // ReyclerView settings
+        mRecyclerView = view.findViewById(R.id.itemsListView);
+        mRecyclerView.setHasFixedSize(true);
+
+
+
 
         SharedPreferences preferences = getActivity().getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         String retrivedToken  = preferences.getString("TOKEN",null);
@@ -78,17 +90,30 @@ public class TaskList extends Fragment {
 
                 int taskSize = tasks.getData().getTasks().size();
 
-                if (taskSize > 0) {
-                    noData.setVisibility(View.INVISIBLE);
-                }
+//                if (taskSize > 0) {
+//                    noData.setVisibility(View.INVISIBLE);
+//                }
 
-                ArrayList<Tasks> arr = new ArrayList<>();
+//                ArrayList<Tasks> arr = new ArrayList<>();
+//                for (int x = 0; x < taskSize; x++) {
+//                    arr.add(x,tasks);
+//                }
+
+                ArrayList<Tasks> recList = new ArrayList<>();
                 for (int x = 0; x < taskSize; x++) {
-                    arr.add(x,tasks);
+                    recList.add(x,tasks);
                 }
 
+                mLayoutManager = new LinearLayoutManager(getContext());
+                mAdapter = new RecAdapter(recList);
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                mRecyclerView.setAdapter(mAdapter);
+
+
+                /*
                 TaskListAdapter adapter = new TaskListAdapter(getContext(), R.layout.fragment_task_item, arr);
                 listView.setAdapter(adapter);
+                 */
             }
 
             @Override
