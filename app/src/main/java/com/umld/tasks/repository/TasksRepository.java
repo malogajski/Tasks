@@ -26,4 +26,10 @@ public class TasksRepository extends Repository {
                 .addTask(token, task)
                 .enqueue(generateCallback(callback));
     }
+
+    public void getTasksById(String token, String id, final ModelCallback<Tasks> callback){
+        createFacade(TasksApi.class)
+                .getTaskById(token, id)
+                .enqueue(generateCallback(callback));
+    }
 }

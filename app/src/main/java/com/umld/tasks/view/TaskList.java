@@ -1,18 +1,28 @@
 package com.umld.tasks.view;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
@@ -36,18 +46,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.Manifest.permission.CAMERA;
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TaskList extends Fragment {
 
+
+
     private TextView noData;
-//    private ListView listView;
     private FloatingActionButton addNewTask;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
 
     TasksRepository taskRepo;
 
@@ -62,8 +77,8 @@ public class TaskList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
-//        noData = view.findViewById(R.id.emptyTextView);
-//        listView = view.findViewById(R.id.itemsListView);
+        noData = view.findViewById(R.id.emptyTextView);
+
         addNewTask = view.findViewById(R.id.addNewTask);
         // ReyclerView settings
         mRecyclerView = view.findViewById(R.id.itemsListView);
@@ -77,13 +92,20 @@ public class TaskList extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         String retrivedToken  = preferences.getString("TOKEN",null);
 
+
+
         // Add new task from FAB
-        addNewTask.setOnClickListener(view1 ->MainActivity.fragmentManager
-                .beginTransaction()
-                .replace(R.id.mainFrame, new AddTask(), null)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit());
+        addNewTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                MainActivity.fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.mainFrame, new AddTask(), null)
+                        .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+            }
+        });
 
         // Show tasks
         taskRepo = new TasksRepository(getActivity());
@@ -93,14 +115,9 @@ public class TaskList extends Fragment {
 
                 int taskSize = tasks.getData().getTasks().size();
 
-//                if (taskSize > 0) {
-//                    noData.setVisibility(View.INVISIBLE);
-//                }
-
-//                ArrayList<Tasks> arr = new ArrayList<>();
-//                for (int x = 0; x < taskSize; x++) {
-//                    arr.add(x,tasks);
-//                }
+                if (taskSize > 0) {
+                    noData.setVisibility(View.INVISIBLE);
+                }
 
                 ArrayList<Tasks> recList = new ArrayList<>();
                 for (int x = 0; x < taskSize; x++) {
@@ -113,10 +130,6 @@ public class TaskList extends Fragment {
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
 
-                /*
-                TaskListAdapter adapter = new TaskListAdapter(getContext(), R.layout.fragment_task_item, arr);
-                listView.setAdapter(adapter);
-                 */
             }
 
             @Override
@@ -127,6 +140,8 @@ public class TaskList extends Fragment {
 
         return view;
     }
+
+
 
 
 }

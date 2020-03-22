@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 
 import com.umld.tasks.R;
+import com.umld.tasks.databinding.FragmentTaskItemBinding;
 import com.umld.tasks.model.Tasks;
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class TaskListAdapter extends ArrayAdapter<Tasks> {
         mContext = context;
         mResource = resource;
     }
+
+
 
     @NonNull
     @Override

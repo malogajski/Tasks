@@ -1,22 +1,33 @@
 package com.umld.tasks.view;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +50,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.Manifest.permission.CAMERA;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AddTask extends Fragment {
+
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     private TextView dpDeadlineDate;
     private TextView dpDeadlineTime;
@@ -53,6 +69,9 @@ public class AddTask extends Fragment {
     private CheckBox cbCompleted;
     private TasksRepository addtask;
     private FloatingActionButton addNewTaskFAB;
+
+    private ImageView imageView;
+    private Button photoButton;
 
     private String year, month, day, hour="0", minute="0";
 
@@ -76,6 +95,9 @@ public class AddTask extends Fragment {
         addNewTaskFAB = view.findViewById(R.id.saveNewTask);
         dpDeadlineDate = view.findViewById(R.id.dpDeadline);
         dpDeadlineTime = view.findViewById(R.id.dpDeadlineTime);
+
+        imageView = view.findViewById(R.id.caputerdImg);
+        photoButton = view.findViewById(R.id.btCapture);
 
 
         dpDeadlineDate.setOnClickListener((View view1) -> {
@@ -171,7 +193,49 @@ public class AddTask extends Fragment {
             });
         });
 
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ContextCompat.checkSelfPermission(inflater.getContext(), CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    AddTask.this.requestPermissions(new String[]{CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                } else {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    AddTask.this.startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+            }
+        });
 
         return view;
+    }
+
+    // Camera
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_CAMERA_PERMISSION_CODE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(getContext(), "camera permission granted", Toast.LENGTH_LONG).show();
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+            else
+            {
+                Toast.makeText(getContext(), "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
+        {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(photo);
+        }
     }
 }
